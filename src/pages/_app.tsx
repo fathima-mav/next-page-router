@@ -1,3 +1,4 @@
+import type { AppProps } from "next/app"
 import { useState, useEffect } from "react"
 import "@/styles/globals.css"
 import Navbar from "@/components/Navbar"
@@ -8,7 +9,7 @@ import CartDrawer from "@/components/CartDrawer"
 import { SearchProvider } from "@/context/SearchContext"
 import SEO from "@/components/SEO"
 
-export default function MyApp({ Component, pageProps }) {
+export default function MyApp({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -20,11 +21,10 @@ export default function MyApp({ Component, pageProps }) {
   }, [])
 
   // 👇 Get SEO from page if defined
-  const seo = Component.seo || {}
+  const seo = (Component as any).seo || {}
 
   return (
     <>
-      {/* Global / Dynamic SEO */}
       <SEO {...seo} />
 
       {loading && <LoadingScreen />}
